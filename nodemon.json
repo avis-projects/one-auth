@@ -1,0 +1,3 @@
+{
+  "start": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon ./dist/index.js\""
+}
