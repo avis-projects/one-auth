@@ -1,0 +1,8 @@
+# Packages
+node_modules
+
+# ts
+dist
+
+# vs-code
+.vscode
