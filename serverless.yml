@@ -1,0 +1,57 @@
+service: one-service
+ 
+frameworkVersion: '3'
+ 
+configValidationMode: error
+# useDotenv: true # Load environment variables from .env files (default: false)
+
+
+deprecationNotificationMode: warn:summary # 'warn' reports deprecations on the go, 'error' will result with an exception being thrown on first approached deprecation
+# disabledDeprecations: # Disable deprecations by their codes (default: empty)
+#   - DEP_CODE_1 # Deprecation code to disable
+#   - '*' # Disable all deprecation messages
+
+params:
+  prod:
+    my-parameter: foo
+  dev:
+    my-parameter: bar
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  runtime: nodejs20.x
+  runtimeManagement: auto # optional, set how Lambda controls all functions runtime. AWS default is auto; this can either be 'auto' or 'onFunctionUpdate'. For 'manual', see example in hello function below (syntax for both is identical
+  memorySize: 512
+  timeout: 6
+  # Function environment variables
+  environment:
+    APP_ENV_VARIABLE: FOOBAR
+
+  logRetentionInDays: 1
+  # logDataProtectionPolicy:
+  #   Name: data-protection-policy
+  #   Version: 
+  # KMS key ARN to use for encryption for all functions
+  # kmsKeyArn: arn:aws:kms:us-east-1:XXXXXX:key/some-hash
+  # Version of hashing algorithm used by Serverless Framework for function packaging
+  lambdaHashingVersion: 20201221
+  versionFunctions: false # Use function versioning (enabled by default)
+  architecture: x86_64 # Processor architecture: 'x86_64' or 'arm64' via Graviton2 (default: x86_64)
+functions:
+  auth:
+    handler: src/auth/handler.auth
+    events:
+      - httpApi:
+          method: '*'
+          path: /auth/*
+  transaction:
+    handler: src/transaction/handler.transaction
+    events:
+      - httpApi:
+          method: '*'
+          path: /transaction/*

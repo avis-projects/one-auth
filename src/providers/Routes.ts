@@ -1,8 +1,5 @@
-/**
- * Define all your routes
-**/
-
 import { Application } from 'express';
+
 import Locals from '../constants/Envs';
 import Log from '../middlewares/Log';
 

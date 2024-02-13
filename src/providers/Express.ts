@@ -1,6 +1,6 @@
 import * as express from "express";
-import Locals from '../constants/Envs';
 
+import Locals from '../constants/Envs';
 import Routes from './Routes';
 
 class Express {

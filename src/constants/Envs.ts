@@ -11,7 +11,7 @@ class Locals {
 		const port = process.env.PORT || 4040
 
 		return {
-			url,port
+			url, port
 		};
 	}
 
